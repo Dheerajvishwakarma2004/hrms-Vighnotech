@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+.tmp-build-*/
+
+# Environment files (secrets) - keep the committed examples
+.env
+.env.*
+!.env.example
+
+# End-to-end test project (kept locally, not part of the submission)
+e2e/
+
+# Test output and reports
+coverage/
+test-results/
+playwright-report/
+**/playwright/.auth/
+screenshots/
+ui-tmp*/
+
+# Logs and caches
+*.log
+npm-debug.log*
+.eslintcache
+*.tsbuildinfo
+.cache/
+.vite/
+
+# Uploaded files / local data
+uploads/
+*.pid
+
+# Archives (the submission zip is built separately)
+*.zip
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Claude Code local files
+.claude/

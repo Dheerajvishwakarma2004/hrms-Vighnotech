@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    @apply scroll-smooth antialiased;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply min-h-screen bg-slate-50 font-sans text-[15px] leading-relaxed text-slate-800;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  /* Headings use the friendlier display face; body copy stays Inter. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-slate-900;
+    letter-spacing: -0.01em;
+    word-spacing: 0.08em;
+  }
+
+  ::selection {
+    @apply bg-primary-200 text-primary-950;
+  }
+
+  /* One consistent, clearly visible keyboard focus ring for anything without its own. */
+  :focus-visible {
+    outline: 2px solid theme('colors.primary.500');
+    outline-offset: 2px;
+  }
+
+  input[type='date']::-webkit-calendar-picker-indicator {
+    @apply cursor-pointer opacity-60 transition-opacity hover:opacity-100;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+# Render Blueprint - deploys the API and the built React client as ONE free web service.
+# The Express server serves client/dist in production (SPA fallback for non-/api routes).
+services:
+  - type: web
+    name: hrms-dashboard
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 2h
+      - key: CLIENT_URL
+        sync: false
