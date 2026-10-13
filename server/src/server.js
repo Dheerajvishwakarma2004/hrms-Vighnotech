@@ -1,6 +1,7 @@
 import app from './app.js';
 import { connectDB, disconnectDB } from './config/db.js';
 import { env } from './config/env.js';
+import { startKeepAlive } from './services/keepAlive.service.js';
 import { isMainModule } from './utils/isMainModule.js';
 
 const SHUTDOWN_SIGNALS = ['SIGINT', 'SIGTERM'];
@@ -26,11 +27,14 @@ export const startServer = async ({
   });
   console.log(`[server] HRMS API listening on http://localhost:${port} (${env.NODE_ENV})`);
 
+  const stopKeepAlive = startKeepAlive();
+
   let shuttingDown = false;
   const shutdown = async (signal) => {
     if (shuttingDown) return;
     shuttingDown = true;
     console.log(`[server] ${signal} received - shutting down`);
+    stopKeepAlive();
     server.close();
     await disconnectDB();
     if (onShutdown) await onShutdown();

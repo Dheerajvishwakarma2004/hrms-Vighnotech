@@ -292,6 +292,8 @@ NODE_ENV=production JWT_SECRET=<min-16-chars> MONGODB_URI=<uri> npm start
 | `JWT_SECRET` | dev-only fallback | JWT signing secret, **required in production** (min 16 characters) |
 | `JWT_EXPIRES_IN` | `2h` | HR session lifetime (the assignment requires 2 hours) |
 | `CLIENT_URL` | `http://localhost:5173` | CORS allow-list, comma-separated (for example, the Vercel URL) |
+| `KEEP_ALIVE_URL` | none | Public URL of the service. Production only; on Render `RENDER_EXTERNAL_URL` is used automatically, so leave this empty there |
+| `KEEP_ALIVE_INTERVAL_MINUTES` | `10` | Minutes between keep-alive pings (1 to 14) |
 
 **Client** (`client/.env`, see `client/.env.example`)
 
@@ -330,6 +332,7 @@ The repository includes a blueprint, `render.yaml`. It builds with `npm run buil
    - `CLIENT_URL`: the service's own URL, e.g. `https://hrms-dashboard.onrender.com`. Add a Vercel URL with a comma if you also use Vercel.
 3. Render generates `JWT_SECRET` automatically. `NODE_ENV=production` and `JWT_EXPIRES_IN=2h` are preset.
 4. After the deploy, open the service URL. Express serves the React build and the API from the same origin, so `VITE_API_URL` is not needed.
+5. **Keep-alive.** Render's free plan puts a service to sleep after about 15 minutes without traffic, and the next visit then waits 30 to 60 seconds. In production the server therefore pings its own public `/api/health` every 10 minutes (`server/src/services/keepAlive.service.js`, started from `server.js`). It needs no configuration on Render, and it does nothing locally or in tests. It can only keep an awake service awake: it cannot wake one that is already asleep, so for extra safety also add a free external monitor (for example UptimeRobot) that requests `/api/health` every 5 minutes.
 
 ### 3. Optional: frontend on Vercel
 1. Import the repository in Vercel and set **Root Directory** to `client`. `client/vercel.json` already sets up the Vite build and the SPA rewrite.

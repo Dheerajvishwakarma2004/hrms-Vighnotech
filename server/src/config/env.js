@@ -38,6 +38,11 @@ const envSchema = z.object({
       .default('2h'),
   ),
   CLIENT_URL: z.preprocess(blankToUndefined, z.string().default('http://localhost:5173')),
+  // Keep-alive (production only): public URL of this service. Render sets RENDER_EXTERNAL_URL automatically.
+  KEEP_ALIVE_URL: z.preprocess(blankToUndefined, z.string().url().optional()),
+  RENDER_EXTERNAL_URL: z.preprocess(blankToUndefined, z.string().url().optional()),
+  // Render sleeps free services after 15 idle minutes, so the interval must stay below that.
+  KEEP_ALIVE_INTERVAL_MINUTES: z.preprocess(blankToUndefined, z.coerce.number().int().min(1).max(14).default(10)),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -71,6 +76,9 @@ export const env = Object.freeze({
   CLIENT_URLS: raw.CLIENT_URL.split(',')
     .map((url) => url.trim().replace(/\/$/, ''))
     .filter(Boolean),
+  KEEP_ALIVE_BASE_URL: isProduction
+    ? (raw.KEEP_ALIVE_URL ?? raw.RENDER_EXTERNAL_URL)?.replace(/\/$/, '')
+    : undefined,
   isProduction,
   isDevelopment: raw.NODE_ENV === 'development',
   isTest: raw.NODE_ENV === 'test',
