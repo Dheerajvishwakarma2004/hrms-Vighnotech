@@ -7,6 +7,7 @@ import DataTable from '@/components/data/DataTable';
 import EmployeeIdentity from '@/components/data/EmployeeIdentity';
 import DropdownMenu from '@/components/ui/DropdownMenu';
 import StatusBadge from '@/components/ui/StatusBadge';
+import { formatPhone } from '@/lib/phone';
 import RoleSelect from './RoleSelect';
 
 /** Container widths (px): the table needs `table`; lower-priority columns appear as space allows. */
@@ -66,7 +67,7 @@ export default function EmployeeTable({
         className: 'whitespace-nowrap',
         render: (employee) => (
           <a href={`tel:${employee.phone}`} className="hover:text-primary-600 hover:underline">
-            {employee.phone}
+            {formatPhone(employee.phone)}
           </a>
         ),
       },

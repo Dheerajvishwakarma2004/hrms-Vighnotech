@@ -5,6 +5,7 @@ import Avatar from '@/components/ui/Avatar';
 import Button from '@/components/ui/Button';
 import Modal from '@/components/ui/Modal';
 import StatusBadge from '@/components/ui/StatusBadge';
+import { formatPhone } from '@/lib/phone';
 import { formatExperience } from '../constants';
 
 function DetailItem({ label, children }) {
@@ -54,7 +55,7 @@ export default function CandidateDetailsModal({ candidate, onClose, onEdit, onDo
       </div>
 
       <dl className="mt-6 grid grid-cols-1 gap-4 min-[400px]:grid-cols-2">
-        <DetailItem label="Phone">{candidate.phone}</DetailItem>
+        <DetailItem label="Phone">{formatPhone(candidate.phone)}</DetailItem>
         <DetailItem label="Position">{candidate.position}</DetailItem>
         <DetailItem label="Department">{candidate.department}</DetailItem>
         <DetailItem label="Experience">{formatExperience(candidate.experience)}</DetailItem>

@@ -12,6 +12,7 @@ import FileInput from '@/components/ui/FileInput';
 import FormField from '@/components/ui/FormField';
 import Input from '@/components/ui/Input';
 import Modal from '@/components/ui/Modal';
+import PhoneInput from '@/components/ui/PhoneInput';
 import Select from '@/components/ui/Select';
 import Textarea from '@/components/ui/Textarea';
 import { useCreateCandidateMutation, useUpdateCandidateMutation } from '../candidatesApi';
@@ -102,18 +103,23 @@ function CandidateForm({ formId, candidate, saving, onSave, onSaved }) {
           label="Phone"
           htmlFor="candidate-phone"
           error={fieldError('phone')}
-          hint="10 to 15 digits. You can start with + for a country code."
+          hint="Pick the country code, then type the number."
           required
         >
-          <Input
-            id="candidate-phone"
-            type="tel"
-            inputMode="tel"
-            autoComplete="off"
-            placeholder="+919876543210"
-            error={fieldError('phone')}
-            hasHint
-            {...register('phone')}
+          <Controller
+            name="phone"
+            control={control}
+            render={({ field }) => (
+              <PhoneInput
+                id="candidate-phone"
+                name={field.name}
+                value={field.value}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                error={fieldError('phone')}
+                hasHint
+              />
+            )}
           />
         </FormField>
       </Section>

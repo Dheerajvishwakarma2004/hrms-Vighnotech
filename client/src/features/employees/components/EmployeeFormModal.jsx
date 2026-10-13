@@ -9,6 +9,7 @@ import Button from '@/components/ui/Button';
 import FormField from '@/components/ui/FormField';
 import Input from '@/components/ui/Input';
 import Modal from '@/components/ui/Modal';
+import PhoneInput from '@/components/ui/PhoneInput';
 import Select from '@/components/ui/Select';
 import Textarea from '@/components/ui/Textarea';
 import { useCreateEmployeeMutation, useUpdateEmployeeMutation } from '../employeesApi';
@@ -85,7 +86,20 @@ function EmployeeForm({ formId, employee, onSave, onSaved }) {
       </FormField>
 
       <FormField {...fieldProps('phone', 'Phone')}>
-        <Input type="tel" inputMode="tel" autoComplete="off" placeholder="+919876543210" {...controlProps('phone')} />
+        <Controller
+          name="phone"
+          control={control}
+          render={({ field }) => (
+            <PhoneInput
+              id={fieldId('phone')}
+              name={field.name}
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={errors.phone?.message}
+            />
+          )}
+        />
       </FormField>
 
       <FormField {...fieldProps('position', 'Position')} hint="Pick an existing title or type a new one.">

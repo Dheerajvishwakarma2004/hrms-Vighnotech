@@ -2,10 +2,10 @@ import { z } from 'zod';
 import { MAX_UPLOAD_SIZE } from './constants';
 import { DATE_KEY_REGEX } from './date';
 import { formatBytes } from './formData';
+import { getPhoneError } from './phone';
 
 /** Shared zod building blocks that mirror the server's validation rules. */
 
-const PHONE_REGEX = /^\+?[0-9]{10,15}$/;
 const NAME_REGEX = /^[\p{L}][\p{L}\s.'-]*$/u;
 /** Mirrors the server's email length limit. */
 const EMAIL_MAX_LENGTH = 100;
@@ -36,13 +36,12 @@ export const emailField = () =>
     .email('Enter a valid email address')
     .transform((value) => value.toLowerCase());
 
+/** Phone as one string (`+919876543210`) built by `PhoneInput`; checked per country by `getPhoneError`. */
 export const phoneField = () =>
-  z
-    .string()
-    .trim()
-    .min(1, 'Phone number is required')
-    .transform((value) => value.replace(/[\s()-]/g, ''))
-    .refine((value) => PHONE_REGEX.test(value), 'Enter 10–15 digits, optionally starting with +');
+  z.string().superRefine((value, ctx) => {
+    const message = getPhoneError(value);
+    if (message) ctx.addIssue({ code: z.ZodIssueCode.custom, message });
+  });
 
 /** Password strength rules: min 8 chars with upper, lower, number and special character. */
 export const passwordField = () =>

@@ -4,6 +4,7 @@ import DataTable from '@/components/data/DataTable';
 import Avatar from '@/components/ui/Avatar';
 import DropdownMenu from '@/components/ui/DropdownMenu';
 import Spinner from '@/components/ui/Spinner';
+import { formatPhone } from '@/lib/phone';
 import { formatExperience } from '../constants';
 import PillMenu from '@/components/ui/PillMenu';
 
@@ -74,7 +75,7 @@ export default function CandidateTable({
             onClick={stopRowClick}
             className="rounded hover:text-primary-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
           >
-            {candidate.phone}
+            {formatPhone(candidate.phone)}
           </a>
         ),
       },

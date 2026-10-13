@@ -18,6 +18,7 @@ import Avatar from '@/components/ui/Avatar';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
+import { formatPhone } from '@/lib/phone';
 import StatusBadge from '@/components/ui/StatusBadge';
 
 function DetailRow({ icon: Icon, label, children }) {
@@ -68,7 +69,7 @@ export default function EmployeeProfileCard({ employee, onDownloadResume, downlo
         </DetailRow>
         <DetailRow icon={Phone} label="Phone">
           <a href={`tel:${employee.phone}`} className="hover:text-primary-600 hover:underline">
-            {employee.phone}
+            {formatPhone(employee.phone)}
           </a>
         </DetailRow>
         <DetailRow icon={Building2} label="Department">
