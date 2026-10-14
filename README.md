@@ -341,16 +341,14 @@ The repository includes a blueprint, `render.yaml`. It builds with `npm run buil
 
 ## Screenshots
 
-> Replace these placeholders with screenshots from the running app (e.g. save them to `docs/screenshots/`).
-
 | View | Desktop | Mobile |
 |---|---|---|
-| Login | _screenshot_ | _screenshot_ |
-| Dashboard | _screenshot_ | _screenshot_ |
-| Candidates | _screenshot_ | _screenshot_ |
-| Employees | _screenshot_ | _screenshot_ |
-| Attendance | _screenshot_ | _screenshot_ |
-| Leaves + calendar | _screenshot_ | _screenshot_ |
+| Login | ![Login on desktop](docs/screenshots/01-login-desktop.png) | ![Login on mobile](docs/screenshots/01-login-mobile.jpg) |
+| Dashboard | ![Dashboard on desktop](docs/screenshots/02-dashboard-desktop.png) | ![Dashboard on mobile](docs/screenshots/02-dashboard-mobile.jpg) |
+| Candidates | ![Candidates on desktop](docs/screenshots/03-candidates-desktop.png) | ![Candidates on mobile](docs/screenshots/03-candidates-mobile.jpg) |
+| Employees | ![Employees on desktop](docs/screenshots/04-employees-desktop.png) | ![Employees on mobile](docs/screenshots/04-employees-mobile.jpg) |
+| Attendance | ![Attendance on desktop](docs/screenshots/05-attendance-desktop.png) | ![Attendance on mobile](docs/screenshots/05-attendance-mobile.jpg) |
+| Leaves + calendar | ![Leaves + calendar on desktop](docs/screenshots/06-leaves-calendar-desktop.png) | ![Leaves + calendar on mobile](docs/screenshots/06-leaves-calendar-mobile.jpg) |
 
 ---
 
