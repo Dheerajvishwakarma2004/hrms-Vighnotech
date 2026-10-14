@@ -19,7 +19,7 @@ coverage/
 test-results/
 playwright-report/
 **/playwright/.auth/
-screenshots/
+/screenshots/
 ui-tmp*/
 
 # Logs and caches
@@ -46,3 +46,6 @@ Thumbs.db
 
 # Claude Code local files
 .claude/
+
+# Project diagrams (local use only, not part of the submission)
+docs/diagrams/
